@@ -1,2 +1,2 @@
-# rust_template
-This is a template repository for Mech_1 class in RU
+# Mechatronics 2 code
+Code for all homework and final project in mechatronics 2 class
