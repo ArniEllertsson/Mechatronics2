@@ -7,7 +7,7 @@ parameters: port (char)- desired port 0 :port B, 1:port C,
             2:port D. 
             pin(char)-desired pin for port
 */
-extern void digital_out_init(char port , char pin  ){
+void digital_out_init(char port , char pin  ){
 if (port <=3 || pin<=7 ){
    if (port == 0){
         DDRB |= (1 << pin);}
@@ -24,10 +24,10 @@ parameters: port (char)- desired port 0 :port B, 1:port C,
             pin (char)-desired pin for port
 */
 }
-extern void digital_out_set_hi(char port, char pin){
+void digital_out_set_hi(char port, char pin){
 if (port <=3 || pin<=7 ){
     if (port == 0){
-      PORTB |=  (1 << pinMask);}
+      PORTB |=  (1 << pin);}
     else if(port == 1){
         PORTC |= (1 << pin);}
     else{
@@ -41,7 +41,7 @@ parameters: port (char)- desired port 0 :port B, 1:port C,
             2:port D. 
             pin (char)-desired pin for port
 */
-extern void digital_out_set_low(char port, char pin){
+void digital_out_set_low(char port, char pin){
 if (port <=3 || pin<=7 ){
     if (port == 0){
       PORTB &=  (1 << pin);}
@@ -58,7 +58,7 @@ parameters: port (char)- desired port 0 :port B, 1:port C,
             2:port D. 
             pin (char)-desired pin for port
 */
-extern void digital_out_toggle(char port, char pin){
+void digital_out_toggle(char port, char pin){
 if (port <=3 || pin<=7 ){
     if (port == 0){
         PORTB ^=  (1 << pin);}
@@ -69,19 +69,20 @@ if (port <=3 || pin<=7 ){
 } 
 }
 
-extern void digital_in_init(char port, char pin , int pullUp){
+void digital_in_init(char port, char pin , int pullUp){
     if (port <=3 || pin<=7 ){
         if (port == 0){
             DDRB &= ~(1 << pin);
                  if (pullUp){
                     PORTB |= (1 << pin);
                  }
-
+        }
         else if(port == 1){
             DDRC &= ~(1 << pin);
                 if (pullUp){
                     PORTC |= (1 << pin);
                 }
+        }
         else{
             DDRD &= ~(1 << pin);
                 if (pullUp){
@@ -91,12 +92,15 @@ extern void digital_in_init(char port, char pin , int pullUp){
         } 
     }
 }
-extern int digital_in_read(char port, char pin){
-    if (port <=3 || pin<=7 ){
+
+int digital_in_read(char port, char pin){
+    if (port <=3 || pin <=7 ){
         if (port == 0){
-            return PINDB & (1 << pin);}
+            return PINB & (1 << pin);
+            }
         else if(port == 1){
-            return PINDC & (1 << pin);}
+            return PINC & (1 << pin);
+            }
         else{
             return PIND & (1 << pin);
         }
